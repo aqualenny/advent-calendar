@@ -119,6 +119,7 @@ window.addEventListener('load', () => {
   animateSnow();
 });
 
+// ----- loader fade -----
 window.addEventListener("load", () => {
   setTimeout(() => {
     document.getElementById("loader").classList.add("hidden");
