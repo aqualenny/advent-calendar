@@ -21,6 +21,7 @@ h1{
   grid-template-columns:repeat(auto-fit,minmax(80px,1fr));
   max-width:500px;
   margin-inline:auto;
+  justify-items: center;
 }
 
 .door{
