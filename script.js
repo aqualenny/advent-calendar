@@ -66,14 +66,26 @@ function closeZoom(day) {
 })();
 
 
+// ========== SIMPLE COUNTDOWN TIMER ==========
+function updateTimer() {
+  const christmas = new Date("December 25, " + new Date().getFullYear()).getTime();
+  const now = new Date().getTime();
+  const distance = christmas - now;
 
-// ========== OPTIONAL FUTURE IMPROVEMENTS (commented) ==========
+  if (distance < 0) {
+    document.getElementById("timer").textContent = "MERRY CHRISTMAS!";
+    return;
+  }
 
-// disable scroll behind modal
-// overlay.addEventListener('click', () => closeZoom(day));
+  const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-// automatically close modal on escape key
-// document.addEventListener("keydown", e => {
-//     if(e.key === "Escape") closeZoomDay(/* day */);
-// });
+  document.getElementById("timer").textContent =
+    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+}
+
+updateTimer();
+setInterval(updateTimer, 1000);
 
