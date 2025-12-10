@@ -1,11 +1,6 @@
 // ----- open door -----
 function openDoor(day){
 
-  if(day === 'test'){
-    window.location.href = "test.html";
-    return;
-  }
-
   const now = new Date();
   const today = now.getDate();
 
