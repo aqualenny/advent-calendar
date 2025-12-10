@@ -142,3 +142,22 @@ h1{
 #musicHint.hidden {
   display: none;
 }
+
+.door {
+  position: relative;
+  overflow: visible;
+}
+
+.door::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 30px;
+  background-image: url('assets/bow.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  pointer-events: none;
+}
