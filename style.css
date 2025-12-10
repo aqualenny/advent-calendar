@@ -22,21 +22,10 @@ h1{
   max-width:500px;
   margin-inline:auto;
   justify-items: center;
+  align-items: start;
 }
 
-.door{
-  background:white;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:1.8rem;
-  color:#ff009e;
-  aspect-ratio:1/1;
-  cursor:pointer;
-  box-shadow:0 4px 10px rgba(0,0,0,0.1);
-  transition:.2s;
-}
+
 
 .door:hover{
   transform:translateY(-3px);
@@ -146,6 +135,18 @@ h1{
 .door {
   position: relative;
   overflow: visible;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: #ff009e;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: .2s;
 }
 
 .door::before {
