@@ -65,5 +65,5 @@ h1{
   width:100vw;
   height:100vh;
   pointer-events: none;
-  z-index: 0;              /* behind doors */
+  z-index: 9999;              /* behind doors */
 }
