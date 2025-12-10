@@ -163,3 +163,8 @@ h1{
   background-size: contain;
   pointer-events: none;
 }
+
+.bottom-door {
+  grid-column: 1 / -1;
+  justify-self: center;
+}
