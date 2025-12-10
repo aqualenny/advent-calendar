@@ -1,18 +1,18 @@
-// Content object is inlined in index.html script tag
-
+// ========== OPEN DOOR (modal + flip) ==========
 function openDoor(day, door) {
-    // if the door is locked, do nothing
+
+    // prevent opening locked doors
     if (door.classList.contains("locked")) return;
 
-    // flip the door
+    // visually flip
     door.classList.add("open");
 
-    // create overlay
+    // dark background
     const overlay = document.createElement("div");
     overlay.className = "modal-overlay";
     document.body.appendChild(overlay);
 
-    // fill the back content
+    // insert zoom content
     const back = door.querySelector(".back");
     back.innerHTML = `
         <div class="back-content zoomed">
@@ -22,185 +22,58 @@ function openDoor(day, door) {
     `;
 }
 
+
+
+// ========== CLOSE ZOOM ==========
 function closeZoom(day) {
 
-    // remove zoom styling
-    const backContent = document.querySelector('.back-content.zoomed');
-    if (backContent) backContent.classList.remove('zoomed');
+    // remove zoom
+    const zoom = document.querySelector(".back-content.zoomed");
+    if (zoom) zoom.remove();
 
     // remove overlay
-    const overlay = document.querySelector('.modal-overlay');
+    const overlay = document.querySelector(".modal-overlay");
     if (overlay) overlay.remove();
 
-    // close the door visually
-    const door = document.querySelector(`.door[data-day="${day}"]`);
-    if (door) door.classList.remove("open");
+    // unflip door
+    const door = document.querySelector(\`.door[data-day="${day}"]\`);
+    if (door) {
+        door.classList.remove("open");
 
-    // clear inside
-    const back = door.querySelector(".back");
-    back.innerHTML = "";
+        // clear backside
+        const back = door.querySelector(".back");
+        if (back) back.innerHTML = "";
     }
-} 
+}
 
-  const backContent = back.querySelector(".back-content");
-  const backButton = back.querySelector(".back-button");
 
-  // Get door position and size
-  const doorRect = door.getBoundingClientRect();
 
-  // Set initial style of backContent to match door position & size
-  backContent.style.position = "fixed";
-  backContent.style.top = doorRect.top + "px";
-  backContent.style.left = doorRect.left + "px";
-  backContent.style.width = doorRect.width + "px";
-  backContent.style.height = doorRect.height + "px";
-  backContent.style.opacity = "1";
-  backContent.style.borderRadius = "12px";
-  backContent.style.boxShadow = "0 8px 25px rgba(255, 105, 180, 0.6)";
-  backContent.style.background = "#fff";
-  backContent.style.transition = "all 0.5s ease";
-  backContent.style.overflow = "auto";
-	backContent.style.zIndex = 10000
+// ========== YOUR ORIGINAL BUSINESS LOGIC ==========
 
-  door.classList.add("opening");
-
-  setTimeout(() => {
-    door.classList.remove("opening");
-    door.classList.add("open");
-
-    // Calculate center position and size for zoomed state
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const targetWidth = vw * 0.9;
-    const targetHeight = vh * 0.8;
-
-    const targetTop = (vh - targetHeight) / 2 - vh * 0.15;
-    const targetLeft = (vw - targetWidth) / 2;
-
-    // Animate to center + bigger size
-    requestAnimationFrame(() => {
-      backContent.style.top = targetTop + "px";
-      backContent.style.left = targetLeft + "px";
-      backContent.style.width = targetWidth + "px";
-      backContent.style.height = targetHeight + "px";
-      backContent.style.borderRadius = "20px";
-      backContent.style.boxShadow = "0 15px 40px rgba(255, 105, 180, 0.9)";
-      backContent.style.zIndex = 9999;
+// Auto-lock future days
+(function lockFutureDoors(){
+    const today = new Date().getDate();
+    document.querySelectorAll('.door').forEach(door => {
+        const day = parseInt(door.getAttribute('data-day'));
+        if (day > today) door.classList.add('locked');
     });
+})();
 
-    backButton.focus();
+// Test unlock day 9
+(function unlockDay9(){
+    const door9 = document.querySelector('.door[data-day="9"]');
+    if (door9) door9.classList.remove('locked');
+})();
 
-    backButton.addEventListener("click", (e) => {
-      e.stopPropagation();
 
-      // Animate back to door position and size
-      backContent.style.top = doorRect.top + "px";
-      backContent.style.left = doorRect.left + "px";
-      backContent.style.width = doorRect.width + "px";
-      backContent.style.height = doorRect.height + "px";
-      backContent.style.borderRadius = "12px";
-      backContent.style.boxShadow = "0 8px 25px rgba(255, 105, 180, 0.6)";
-      backContent.style.zIndex = 100;
 
-      backContent.addEventListener(
-        "transitionend",
-        function handler(event) {
-          if (event.propertyName === "top" || event.propertyName === "left") {
-            door.classList.remove("open");
-            back.innerHTML = "";
-            backContent.removeEventListener("transitionend", handler);
-          }
-        },
-        { once: true }
-      );
-    });
-  }, 800);
-}
+// ========== OPTIONAL FUTURE IMPROVEMENTS (commented) ==========
 
-// Countdown timer for next door unlock (midnight next day)
-function updateTimer() {
-  const now = new Date();
-  const midnight = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate() + 1,
-    0,
-    0,
-    0
-  );
-  const diff = midnight - now;
+// disable scroll behind modal
+// overlay.addEventListener('click', () => closeZoom(day));
 
-  if (diff <= 0) {
-    document.getElementById("timer").textContent =
-      "A new door just unlocked! Refresh to see.";
-    return;
-  }
+// automatically close modal on escape key
+// document.addEventListener("keydown", e => {
+//     if(e.key === "Escape") closeZoomDay(/* day */);
+// });
 
-  const hours = Math.floor(diff / 1000 / 60 / 60);
-  const minutes = Math.floor((diff / 1000 / 60) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  document.getElementById(
-    "timer"
-  ).textContent = `Next door unlocks in ${hours}h ${minutes}m ${seconds}s`;
-}
-
-setInterval(updateTimer, 1000);
-updateTimer();
-
-// --- Falling snow effect ---
-
-const canvas = document.getElementById("snow");
-const ctx = canvas.getContext("2d");
-let width, height;
-let snowflakes = [];
-
-function initSnow() {
-  width = window.innerWidth;
-  height = window.innerHeight;
-  canvas.width = width;
-  canvas.height = height;
-
-  snowflakes = [];
-  for (let i = 0; i < 150; i++) {
-    snowflakes.push({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      radius: Math.random() * 3 + 1,
-      speedY: Math.random() * 1 + 0.5,
-      speedX: (Math.random() - 0.5) * 0.5,
-      opacity: Math.random(),
-    });
-  }
-}
-
-function updateSnow() {
-  ctx.clearRect(0, 0, width, height);
-  ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
-  ctx.beginPath();
-
-  snowflakes.forEach((flake) => {
-    ctx.moveTo(flake.x, flake.y);
-    ctx.arc(flake.x, flake.y, flake.radius, 0, Math.PI * 2);
-
-    flake.y += flake.speedY;
-    flake.x += flake.speedX;
-
-    if (flake.y > height) {
-      flake.y = 0;
-      flake.x = Math.random() * width;
-    }
-    if (flake.x > width) flake.x = 0;
-    if (flake.x < 0) flake.x = width;
-  });
-
-  ctx.fill();
-  requestAnimationFrame(updateSnow);
-}
-
-window.addEventListener("resize", () => {
-  initSnow();
-});
-
-initSnow();
-updateSnow();
