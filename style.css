@@ -1,91 +1,72 @@
-/* Reset and base */
+/* Global */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
 }
+
 body {
   background: linear-gradient(135deg, #ffe6f0, #ffcce6);
-  color: white;
   min-height: 100vh;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem;
-  overflow-x: hidden;
-  position: relative;
 }
 
-/* Header */
-header {
-  text-align: center;
-  margin-bottom: 1rem;
-}
 header h1 {
-  font-weight: 900;
   font-size: 1.8rem;
   color: #ff4da6;
   text-shadow: 0 0 5px #ff80bf;
-  margin-bottom: 0.3rem;
 }
+
 #timer {
-  font-weight: 600;
-  color: #ff1a75;
+  margin-top: .3rem;
   font-size: 1.2rem;
+  color: #ff1a75;
   text-shadow: 0 0 4px #ff80bf;
 }
 
-/* Calendar grid */
+/* Calendar Grid */
 #calendar {
+  margin-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(65px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
   gap: 12px;
-  justify-content: center;
   width: 100%;
+  max-width: 500px;
 }
 
-
-
-/* Door container */
+/* Door */
 .door {
-  perspective: 1000px;
-  cursor: pointer;
-  position: relative;
   width: 100%;
   aspect-ratio: 1/1;
+  perspective: 1000px;
+  cursor: pointer;
   border-radius: 12px;
-  user-select: none;
-  z-index: 1;
-  background: transparent;
-}
-
-
-/* Locked doors */
-.door.locked {
-  cursor: not-allowed;
-  opacity: 0.5;
-  filter: grayscale(60%);
-}
-
-/* Door inner flipping */
-.door-inner {
   position: relative;
+}
+
+.door.locked {
+  filter: grayscale(70%);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.door-inner {
   width: 100%;
   height: 100%;
-  transition: transform 0.8s ease;
+  transition: transform .8s ease;
   transform-style: preserve-3d;
   border-radius: 12px;
   box-shadow: 0 0 8px rgba(255, 105, 180, 0.7);
 }
 
-/* Flip the door when open */
 .door.open .door-inner {
   transform: rotateY(-180deg);
-  z-index: 1000;
 }
 
-/* Front side */
 .front, .back {
   position: absolute;
   width: 100%;
@@ -95,78 +76,21 @@ header h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: bold;
-  background: #ff4da6;
-  box-shadow: inset 0 0 8px #ff80bf;
-  color: white;
-  user-select: none;
 }
 
-/* Back side */
+.front {
+  background: #ff4da6;
+}
+
 .back {
   background: #fff0f6;
+  color: #333;
   transform: rotateY(180deg);
-  color: #333;
-  padding: 10px;
-  overflow: visible;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-/* Back content zoom container */
-.back-content {
-  /* Remove fixed positioning, width, height and transform scale from here */
-  opacity: 1;
-  transition: all 0.5s ease;
-  overflow: auto;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: #333;
-  box-sizing: border-box;
-  cursor: default;
-}
-
-/* Zoomed in */
-.back-content.zoomed {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 90vw;
-  max-width: 400px;
-  max-height: 80vh;
-  transform: translate(-50%, -50%);
-  opacity: 1;
-  background: white;
-  border-radius: 20px;
-  overflow: auto;
-  padding: 20px;
-  z-index: 9999;
-}
-
-
-/* Back button */
-.back-button {
-  margin-top: 15px;
-  padding: 8px 14px;
-  background: #ff4da6;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s ease;
-  align-self: center;
-}
-.back-button:hover {
-  background: #e60073;
-}
-
+/* Modal */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -175,29 +99,46 @@ header h1 {
   z-index: 9998;
 }
 
+.back-content {
+  display: none;
+}
 
-/* Polaroid style */
+.back-content.zoomed {
+  display: block;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 90vw;
+  max-width: 400px;
+  max-height: 80vh;
+  overflow: auto;
+  background: white;
+  border-radius: 18px;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+/* Polaroid */
 .polaroid {
   background: white;
   padding: 10px 10px 25px 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   border-radius: 12px;
-  margin-top: 10px;
-  max-width: 100%;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   text-align: center;
 }
+
 .polaroid img {
   width: 100%;
   border-radius: 8px;
-  object-fit: cover;
 }
 
-/* Snow canvas on full screen */
+/* Snow canvas */
 #snow {
-  pointer-events: none;
   position: fixed;
   top: 0; left: 0;
   width: 100vw;
   height: 100vh;
+  pointer-events: none;
   z-index: 1;
 }
