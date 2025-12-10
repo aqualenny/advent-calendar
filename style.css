@@ -140,14 +140,15 @@ header h1 {
   width: 90vw;
   max-width: 400px;
   max-height: 80vh;
-  transform: translate(-50%, -50%) scale(1);
+  transform: translate(-50%, -50%);
   opacity: 1;
-  box-shadow: 0 15px 40px rgba(255, 105, 180, 0.9);
-  background: #fff;
+  background: white;
   border-radius: 20px;
   overflow: auto;
+  padding: 20px;
   z-index: 9999;
 }
+
 
 /* Back button */
 .back-button {
@@ -165,6 +166,15 @@ header h1 {
 .back-button:hover {
   background: #e60073;
 }
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+}
+
 
 /* Polaroid style */
 .polaroid {

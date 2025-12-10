@@ -1,24 +1,46 @@
 // Content object is inlined in index.html script tag
 
 function openDoor(day, door) {
-  if (
-    door.classList.contains("locked") ||
-    door.classList.contains("opening") ||
-    door.classList.contains("open")
-  )
-    return;
+    // if the door is locked, do nothing
+    if (door.classList.contains("locked")) return;
 
-  const back = door.querySelector(".back");
+    // flip the door
+    door.classList.add("open");
 
-  if (content[day]) {
+    // create overlay
+    const overlay = document.createElement("div");
+    overlay.className = "modal-overlay";
+    document.body.appendChild(overlay);
+
+    // fill the back content
+    const back = door.querySelector(".back");
     back.innerHTML = `
-      <div class="back-content" tabindex="0" style="transform-origin: top left;">
-        ${content[day].full}
-        <button class="back-button" aria-label="Close door content">Back</button>
-      </div>`;
-  } else {
+        <div class="back-content zoomed">
+            ${content[day].full}
+            <button class="back-button" onclick="closeZoom(${day})">Back</button>
+        </div>
+    `;
+}
+
+function closeZoom(day) {
+
+    // remove zoom styling
+    const backContent = document.querySelector('.back-content.zoomed');
+    if (backContent) backContent.classList.remove('zoomed');
+
+    // remove overlay
+    const overlay = document.querySelector('.modal-overlay');
+    if (overlay) overlay.remove();
+
+    // close the door visually
+    const door = document.querySelector(`.door[data-day="${day}"]`);
+    if (door) door.classList.remove("open");
+
+    // clear inside
+    const back = door.querySelector(".back");
     back.innerHTML = "";
-  }
+    }
+} 
 
   const backContent = back.querySelector(".back-content");
   const backButton = back.querySelector(".back-button");
