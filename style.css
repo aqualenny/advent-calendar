@@ -165,6 +165,8 @@ h1{
 }
 
 .bottom-door {
-  grid-column: 1 / -1;
-  justify-self: center;
+  grid-column: 1 / -1;      /* span whole row */
+  justify-self: center;     /* center in that row */
+  width: 90px;              /* fixed width so it doesn't stretch */
+  aspect-ratio: 1 / 1;
 }
