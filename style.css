@@ -54,12 +54,12 @@ header h1 {
   position: relative;
   width: 100%;
   aspect-ratio: 1/1;
-  max-width: 90px;
   border-radius: 12px;
   user-select: none;
   z-index: 1;
   background: transparent;
 }
+
 
 /* Locked doors */
 .door.locked {
