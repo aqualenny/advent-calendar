@@ -44,47 +44,59 @@ updateCountdown();
 setInterval(updateCountdown,1000);
 
 // ----- Snowfall -----
-const snowCanvas = document.getElementById("snow");
-const ctx = snowCanvas.getContext("2d");
+window.addEventListener('load', () => {
+  const snowCanvas = document.getElementById("snow");
+  if (!snowCanvas || !snowCanvas.getContext) return;
 
-snowCanvas.width = innerWidth;
-snowCanvas.height = innerHeight;
+  const ctx = snowCanvas.getContext("2d");
 
-let flakes = [];
-for (let i = 0; i < 80; i++){
-  flakes.push({
-    x: Math.random() * snowCanvas.width,
-    y: Math.random() * snowCanvas.height,
-    r: Math.random() * 3 + 1,
-    d: Math.random() + 1
-  });
-}
+  function resizeCanvas() {
+    snowCanvas.width = window.innerWidth;
+    snowCanvas.height = window.innerHeight;
+  }
 
-function drawSnow(){
-  ctx.clearRect(0,0,snowCanvas.width,snowCanvas.height);
+  // Set size now + on window resize
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
 
-  flakes.forEach(f=>{
-    ctx.beginPath();
-    ctx.fillStyle = "rgba(255,255,255,0.9)";
-    ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
-    ctx.fill();
-  });
-}
+  const flakes = [];
+  const FLAKE_COUNT = 80;
 
-function updateSnow(){
-  flakes.forEach(f=>{
-    f.y += f.d;
-    if(f.y > snowCanvas.height){
-      f.y = 0;
-      f.x = Math.random() * snowCanvas.width;
-    }
-  });
-}
+  for (let i = 0; i < FLAKE_COUNT; i++) {
+    flakes.push({
+      x: Math.random() * snowCanvas.width,
+      y: Math.random() * snowCanvas.height,
+      r: Math.random() * 3 + 1,
+      d: Math.random() * 0.5 + 0.5
+    });
+  }
 
-function animateSnow(){
-  drawSnow();
-  updateSnow();
-  requestAnimationFrame(animateSnow);
-}
+  function drawSnow() {
+    ctx.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
+    flakes.forEach(f => {
+      ctx.beginPath();
+      ctx.fillStyle = "rgba(255, 255, 255, 0.9)"; 
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      ctx.fill();
+    });
+  }
 
-animateSnow();
+  function updateSnow() {
+    flakes.forEach(f => {
+      f.y += f.d;
+      if (f.y > snowCanvas.height) {
+        f.y = -5;
+        f.x = Math.random() * snowCanvas.width;
+      }
+    });
+  }
+
+  function animateSnow() {
+    drawSnow();
+    updateSnow();
+    requestAnimationFrame(animateSnow);
+  }
+
+  animateSnow();
+});
+
