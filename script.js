@@ -1,25 +1,26 @@
 // ----- open door -----
 function openDoor(day){
 
-  const now = new Date();
-  const today = now.getDate();
-
-  // Force no opening before Dec 12
-  if (today < 12) {
-    showPopup(); 
+  if(day === 'test'){
+    window.location.href = "test.html";
     return;
   }
 
-  // After Dec 12, unlock doors normally
+  const now = new Date();
+  const today = now.getDate();
+
+  if (today < 12) {
+    showPopup();
+    return;
+  }
+
   if(day > today){
     showPopup();
     return;
   }
 
-  // Ready
   window.location.href = `day${day}.html`;
 }
-
 
 // ----- popup -----
 function showPopup(){
