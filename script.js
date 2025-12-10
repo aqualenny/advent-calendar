@@ -1,11 +1,16 @@
 // ----- open door -----
 function openDoor(day){
 
-  // Current date
   const now = new Date();
   const today = now.getDate();
 
-  // If not ready
+  // Force no opening before Dec 12
+  if (today < 12) {
+    showPopup(); 
+    return;
+  }
+
+  // After Dec 12, unlock doors normally
   if(day > today){
     showPopup();
     return;
@@ -25,22 +30,23 @@ function showPopup(){
 
 function updateCountdown(){
   const now = new Date();
-
+  const today = now.getDate();
   const startDate = new Date(now.getFullYear(), 11, 12, 0, 0, 0); // Dec 12
-  
-  // BEFORE Dec 12 → count only to Dec 12
-  if (now < startDate) {
+
+  // BEFORE Dec 12 → ONLY count to Dec 12
+  if (today < 12) {
     const diff = startDate - now;
-    const h = Math.floor(diff / 3600000);
-    const m = Math.floor((diff % 3600000) / 60000);
-    const s = Math.floor((diff % 60000) / 1000);
+
+    const h = Math.floor(diff/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
 
     document.getElementById("countdown").textContent =
       `First door opens in ${h}h ${m}m ${s}s`;
     return;
   }
 
-  // AFTER Dec 12 → normal daily countdown
+  // AFTER Dec 12 → normal daily countdown to midnight
   const midnight = new Date(now);
   midnight.setHours(24,0,0,0);
   const diff = midnight - now;
