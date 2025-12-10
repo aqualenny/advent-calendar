@@ -67,3 +67,33 @@ h1{
   pointer-events: none;
   z-index: 9999;              /* behind doors */
 }
+
+#loader {
+  position: fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background: #ffe0ef;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  z-index:10000;
+  transition: opacity .6s;
+}
+
+#loader.hidden {
+  opacity:0;
+  pointer-events:none;
+}
+
+.loader-content {
+  font-size: 2rem;
+  color:#ff009e;
+  animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+  from { opacity:.4; }
+  to { opacity:1; }
+}
