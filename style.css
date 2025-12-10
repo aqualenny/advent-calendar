@@ -116,3 +116,28 @@ h1{
 #musicToggle:active {
   transform: scale(.9);
 }
+
+#musicHint {
+  position: fixed;
+  bottom: 80px;
+  right: 15px;
+  background: #ffe0ef;
+  padding: 10px 14px;
+  border-radius: 12px;
+  color: #ff009e;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.15);
+  z-index: 999999;
+  animation: fadeInOut 2s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(10px); }
+  20% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(10px); }
+}
+
+#musicHint.hidden {
+  display: none;
+}

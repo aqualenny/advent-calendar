@@ -129,14 +129,20 @@ window.addEventListener("load", () => {
 // ----- background music -----
 const music = document.getElementById("bgmusic");
 const toggle = document.getElementById("musicToggle");
+const hint = document.getElementById("musicHint");
 
-// Safari/iPhone policy: user tap required
 toggle.addEventListener("click", () => {
+
   if (music.paused) {
     music.play();
     toggle.textContent = "🔊";
   } else {
     music.pause();
     toggle.textContent = "🔇";
+  }
+
+  // hide hint when clicked
+  if(hint){
+    hint.classList.add("hidden");
   }
 });
