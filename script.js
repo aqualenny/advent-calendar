@@ -23,11 +23,26 @@ function showPopup(){
   setTimeout(()=>popup.classList.add("hidden"),1500);
 }
 
-
-// ----- countdown until midnight -----
 function updateCountdown(){
   const now = new Date();
-  const midnight = new Date();
+
+  // If it's before Dec 12 -- countdown until Dec 12 midnight
+  const startDay = 12;
+  if(now.getMonth() === 11 && now.getDate() < startDay){
+    const unlockTime = new Date(now.getFullYear(), 11, startDay, 0, 0, 0);
+    const diff = unlockTime - now;
+
+    const h = Math.floor(diff/3600000);
+    const m = Math.floor((diff%3600000)/60000);
+    const s = Math.floor((diff%60000)/1000);
+
+    document.getElementById("countdown")
+      .textContent = `First door opens in ${h}h ${m}m ${s}s`;
+    return;
+  }
+
+  // After Dec 12 -- countdown until next midnight
+  const midnight = new Date(now);
   midnight.setHours(24,0,0,0);
 
   const diff = midnight - now;
