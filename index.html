@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Advent Calendar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <canvas id="snow"></canvas>
+
+  <header>
+    <h1>🎅 Pink Christmas Advent Calendar 🎁</h1>
+    <div id="timer">Loading timer...</div>
+  </header>
+
+  <main id="calendar">
+    <!-- Doors 9 (test) and 12 to 24 -->
+    <div class="door" data-day="9" onclick="openDoor(9, this)">
+      <div class="door-inner">
+        <div class="front">9</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="12" onclick="openDoor(12, this)">
+      <div class="door-inner">
+        <div class="front">12</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="13" onclick="openDoor(13, this)">
+      <div class="door-inner">
+        <div class="front">13</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="14" onclick="openDoor(14, this)">
+      <div class="door-inner">
+        <div class="front">14</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="15" onclick="openDoor(15, this)">
+      <div class="door-inner">
+        <div class="front">15</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="16" onclick="openDoor(16, this)">
+      <div class="door-inner">
+        <div class="front">16</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="17" onclick="openDoor(17, this)">
+      <div class="door-inner">
+        <div class="front">17</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="18" onclick="openDoor(18, this)">
+      <div class="door-inner">
+        <div class="front">18</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="19" onclick="openDoor(19, this)">
+      <div class="door-inner">
+        <div class="front">19</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="20" onclick="openDoor(20, this)">
+      <div class="door-inner">
+        <div class="front">20</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="21" onclick="openDoor(21, this)">
+      <div class="door-inner">
+        <div class="front">21</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="22" onclick="openDoor(22, this)">
+      <div class="door-inner">
+        <div class="front">22</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="23" onclick="openDoor(23, this)">
+      <div class="door-inner">
+        <div class="front">23</div>
+        <div class="back"></div>
+      </div>
+    </div>
+    <div class="door" data-day="24" onclick="openDoor(24, this)">
+      <div class="door-inner">
+        <div class="front">24</div>
+        <div class="back"></div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // Content for each door
+    const content = {
+      9: {
+        full: `<p>Test Day 9 unlocked early!</p><div class="polaroid"><img src="photos/photo9.jpg" alt="Photo for day 9" /></div>`
+      },
+      12: {
+        full: `<p>Merry Christmas Eve!</p><div class="polaroid"><img src="photos/photo12.jpg" alt="Photo for day 12" /></div>`
+      },
+      13: {
+        full: `<p>Here’s a special message for day 13.</p><div class="polaroid"><img src="photos/photo13.jpg" alt="Photo for day 13" /></div>`
+      },
+      14: {
+        full: `<p>Day 14 message goes here.</p><div class="polaroid"><img src="photos/photo14.jpg" alt="Photo for day 14" /></div>`
+      },
+      15: {
+        full: `<p>Day 15 message goes here.</p><div class="polaroid"><img src="photos/photo15.jpg" alt="Photo for day 15" /></div>`
+      },
+      16: {
+        full: `<p>Day 16 message goes here.</p><div class="polaroid"><img src="photos/photo16.jpg" alt="Photo for day 16" /></div>`
+      },
+      17: {
+        full: `<p>Day 17 message goes here.</p><div class="polaroid"><img src="photos/photo17.jpg" alt="Photo for day 17" /></div>`
+      },
+      18: {
+        full: `<p>Day 18 message goes here.</p><div class="polaroid"><img src="photos/photo18.jpg" alt="Photo for day 18" /></div>`
+      },
+      19: {
+        full: `<p>Day 19 message goes here.</p><div class="polaroid"><img src="photos/photo19.jpg" alt="Photo for day 19" /></div>`
+      },
+      20: {
+        full: `<p>Day 20 message goes here.</p><div class="polaroid"><img src="photos/photo20.jpg" alt="Photo for day 20" /></div>`
+      },
+      21: {
+        full: `<p>Day 21 message goes here.</p><div class="polaroid"><img src="photos/photo21.jpg" alt="Photo for day 21" /></div>`
+      },
+      22: {
+        full: `<p>Day 22 message goes here.</p><div class="polaroid"><img src="photos/photo22.jpg" alt="Photo for day 22" /></div>`
+      },
+      23: {
+        full: `<p>Day 23 message goes here.</p><div class="polaroid"><img src="photos/photo23.jpg" alt="Photo for day 23" /></div>`
+      },
+      24: {
+        full: `<p>Christmas Day!</p><div class="polaroid"><img src="photos/photo24.jpg" alt="Photo for day 24" /></div>`
+      }
+    };
+
+    // Lock doors beyond today
+    const today = new Date().getDate();
+    document.querySelectorAll('.door').forEach(door => {
+      const day = parseInt(door.getAttribute('data-day'));
+      if (day > today) door.classList.add('locked');
+    });
+
+    // Test unlock door 9
+    const door9 = document.querySelector('.door[data-day="9"]');
+    if (door9) door9.classList.remove('locked');
+  </script>
+</body>
+</html>
