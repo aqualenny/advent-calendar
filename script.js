@@ -125,3 +125,18 @@ window.addEventListener("load", () => {
     document.getElementById("loader").classList.add("hidden");
   }, 800);
 });
+
+// ----- background music -----
+const music = document.getElementById("bgmusic");
+const toggle = document.getElementById("musicToggle");
+
+// Safari/iPhone policy: user tap required
+toggle.addEventListener("click", () => {
+  if (music.paused) {
+    music.play();
+    toggle.textContent = "🔊";
+  } else {
+    music.pause();
+    toggle.textContent = "🔇";
+  }
+});
