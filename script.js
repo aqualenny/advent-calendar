@@ -1,10 +1,12 @@
 const TEST_MODE = true;
+console.log("TEST MODE:", TEST_MODE);
 
 // ----- open door -----
 function openDoor(day){
 
-  // TEST MODE: everything unlocked
-  if (TEST_MODE) {
+  // TEST MODE: unlock everything
+  if (TEST_MODE === true) {
+    console.log("Opening door:", day);
     window.location.href = `day${day}.html`;
     return;
   }
@@ -21,6 +23,9 @@ function openDoor(day){
     showPopup();
     return;
   }
+
+  window.location.href = `day${day}.html`;
+}
 
   window.location.href = `day${day}.html`;
 }
