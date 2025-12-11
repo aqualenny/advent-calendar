@@ -1,8 +1,23 @@
-const TEST_MODE = true;
-console.log("TEST MODE:", TEST_MODE);
 
-// ----- open door -----
-function openDoor(day) {
+
+function openDoor(day){
+
+  const now = new Date();
+  const today = now.getDate();
+
+  // Before December 12 → nothing opens
+  if (today < 12) {
+    showPopup();
+    return;
+  }
+
+  // After Dec 12 → only allow past & current days
+  if (day > today) {
+    showPopup();
+    return;
+  }
+
+  // Open the correct day
   window.location.href = `day${day}.html`;
 }
 // ----- popup -----
