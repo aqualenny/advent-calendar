@@ -27,9 +27,6 @@ function openDoor(day){
   window.location.href = `day${day}.html`;
 }
 
-  window.location.href = `day${day}.html`;
-}
-
 // ----- popup -----
 function showPopup(){
   const popup = document.getElementById("popup");
