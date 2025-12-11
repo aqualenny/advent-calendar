@@ -2,31 +2,9 @@ const TEST_MODE = true;
 console.log("TEST MODE:", TEST_MODE);
 
 // ----- open door -----
-function openDoor(day){
-
-  // TEST MODE: unlock everything
-  if (TEST_MODE === true) {
-    console.log("Opening door:", day);
-    window.location.href = `day${day}.html`;
-    return;
-  }
-
-  const now = new Date();
-  const today = now.getDate();
-
-  if (today < 12) {
-    showPopup();
-    return;
-  }
-
-  if (day > today) {
-    showPopup();
-    return;
-  }
-
+function openDoor(day) {
   window.location.href = `day${day}.html`;
 }
-
 // ----- popup -----
 function showPopup(){
   const popup = document.getElementById("popup");
