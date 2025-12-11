@@ -1,5 +1,13 @@
+const TEST_MODE = true;
+
 // ----- open door -----
 function openDoor(day){
+
+  // TEST MODE: everything unlocked
+  if (TEST_MODE) {
+    window.location.href = `day${day}.html`;
+    return;
+  }
 
   const now = new Date();
   const today = now.getDate();
@@ -9,7 +17,7 @@ function openDoor(day){
     return;
   }
 
-  if(day > today){
+  if (day > today) {
     showPopup();
     return;
   }
